@@ -30,7 +30,7 @@ class Visite
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $detecreation;
+    private $datecreation;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -51,6 +51,10 @@ class Visite
      * @ORM\Column(type="integer", nullable=true)
      */
     private $tempmax;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
 
     public function getId(): ?int
     {
@@ -81,14 +85,14 @@ class Visite
         return $this;
     }
 
-    public function getDetecreation(): ?\DateTimeInterface
+    public function getDatecreation(): ?\DateTimeInterface
     {
-        return $this->detecreation;
+        return $this->datecreation;
     }
 
-    public function setDetecreation(?\DateTimeInterface $detecreation): self
+    public function setDatecreation(?\DateTimeInterface $datecreation): self
     {
-        $this->detecreation = $detecreation;
+        $this->datecreation = $datecreation;
 
         return $this;
     }
