@@ -5,22 +5,34 @@
     <table class="table table-striped">>
       <thead>
         <tr>
-          <th class="text-left" scope="col">
-                  Ville
-                  <a href="{{ path('voyagesTri', {champs:'ville', order:'ASC'}) }}" class="btn button-primary btn-sm active" role="button"  aria-pressed="true"><</a>
-                  <a href="{{ path('voyagesTri', {champs:'ville', order:'DESC'}) }}" class="btn button-primary btn-sm active" role="button" aria-pressed="true">></a>
+          <th class="text-left align-top" scope="col">
+              Ville
+              <a href="{{ path('voyagesTri', {champs:'ville', order:'ASC'}) }}" class="btn button-primary btn-sm active" role="button"  aria-pressed="true"><</a>
+              <a href="{{ path('voyagesTri', {champs:'ville', order:'DESC'}) }}" class="btn button-primary btn-sm active" role="button" aria-pressed="true">></a>
+              <form class="form-inline mt-1" method="POST" action="{{ path('voyagesFilter', {champs:'ville'}) }}">
+                  <div class="form-group mr-1 mb-2">
+                    <input class="sm" type="text" name="Recherche">
+                    <button class="btn btn-primary mb-2 btn-sm" type="submit" >filtrer</button>
+                  </div>
+              </form>
           </th>
-          <th scope="col">
+          <th  class="text-left align-top" scope="col">
               Pays
               <a href="{{ path('voyagesTri', {champs:'pays', order:'ASC'}) }}" class="btn button-primary btn-sm active" role="button"  aria-pressed="true"><</a>
               <a href="{{ path('voyagesTri', {champs:'pays', order:'DESC'}) }}" class="btn button-primary btn-sm active" role="button" aria-pressed="true">></a>
+              <form class="form-inline mt-1" method="POST" action="{{ path('voyagesFilter', {champs:'pays'}) }}">
+                  <div class="form-group mr-1 mb-2">
+                    <input class="sm" type="text" name="Recherche">
+                    <button class="btn btn-primary mb-2 btn-sm" type="submit" >filtrer</button>
+                  </div>
+              </form>
           </th>
-          <th scope="col">
+          <th  class="text-left align-top" scope="col">
               Note
               <a href="{{ path('voyagesTri', {champs:'note', order:'ASC'}) }}" class="btn button-primary btn-sm active" role="button"  aria-pressed="true"><</a>
               <a href="{{ path('voyagesTri', {champs:'note', order:'DESC'}) }}" class="btn button-primary btn-sm active" role="button" aria-pressed="true">></a>
           </th>
-          <th scope="col">
+          <th  class="text-left align-top" scope="col">
               Date
               <a href="{{ path('voyagesTri', {champs:'datecreation', order:'ASC'}) }}" class="btn button-primary btn-sm active" role="button"  aria-pressed="true"><</a>
               <a href="{{ path('voyagesTri', {champs:'datecreation', order:'DESC'}) }}" class="btn button-primary btn-sm active" role="button" aria-pressed="true">></a>
