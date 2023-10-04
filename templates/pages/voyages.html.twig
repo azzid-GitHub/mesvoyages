@@ -44,7 +44,7 @@
             <tr>
                 <th scope="row">
                     <h5 class="text-primary">
-                        <a href='#'>{{ visite.ville }}</a>
+                        <a href='{{ path('voyageShowone',{'id':visite.id}) }}'>{{ visite.ville }}</a>
                     </h5>
                 </th>
               <td>{{ visite.pays }}</td>
