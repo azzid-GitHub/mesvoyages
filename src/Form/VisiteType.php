@@ -4,9 +4,12 @@ namespace App\Form;
 
 use App\Entity\Visite;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\DateTime;
+
 
 class VisiteType extends AbstractType
 {
@@ -15,8 +18,10 @@ class VisiteType extends AbstractType
         $builder
             ->add('ville')
             ->add('pays')
-            ->add('datecreation', null, [
+            ->add('datecreation',null, [
                 'widget'=>'single_text',
+                /*'data'=> isset($options['data']) &&
+                    $options['data']->getDatecreation() != null ? $options['data']->getDatecreation():new DateTime('now') ,*/
                 'label'=>'Date'])
             ->add('note')
             ->add('avis')
@@ -24,8 +29,8 @@ class VisiteType extends AbstractType
                 'label'=>'t ° min'])
             ->add('tempmax', null, [
                 'label'=>'t ° max'])
-            ->add('submit', SubmitType::class, ['label'=>'Enregistrer'])
-        ;
+            ->add('submit', SubmitType::class, ['label'=>'Enregistrer'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
