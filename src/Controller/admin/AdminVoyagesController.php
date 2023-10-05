@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 /**
  * Description of VoyagesController
  *
@@ -38,7 +39,6 @@ class AdminVoyagesController extends AbstractController {
     }
 
     /**
-    * 
     * @Route("/admin", name="admin.voyages")
     * @return Response
     */
@@ -62,7 +62,7 @@ class AdminVoyagesController extends AbstractController {
     /**
      * @Route("/admin/edit/{id}", name="admin.voyage.edit")
      * @param Visite $visite
-     * @param Request $Request
+     * @param Request $request
      * @return Response
      */
     public function edit(Visite $visite, Request $request): Response {
