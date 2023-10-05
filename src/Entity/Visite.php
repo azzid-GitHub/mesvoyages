@@ -52,10 +52,7 @@ class Visite
      */
     private $tempmax;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-
+    
     public function getId(): ?int
     {
         return $this->id;
