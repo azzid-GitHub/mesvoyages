@@ -74,6 +74,7 @@ class AdminVoyagesController extends AbstractController {
             return $this->redirectToRoute('admin.voyages');
         }
         return $this->render("pages/admin/admin.voyage.edit.html.twig",[
+            'visite' => $visite,
             'formvisite' => $formVisite->createView(),
         ]);
     }
@@ -88,11 +89,12 @@ class AdminVoyagesController extends AbstractController {
         $formVisite = $this->createForm(VisiteType::class, $visite);
         
         $formVisite->handleRequest($request);
-        if($formVisite->isSubmitted() && $formVisite->isValid() ){
+        if($formVisite->isSubmitted()  && $formVisite->isValid() ){
             $this->repository->add($visite, true);
             return $this->redirectToRoute('admin.voyages');
         }
         return $this->render("pages/admin/admin.voyage.ajout.html.twig",[
+            'visite' => $visite,
             'formvisite' => $formVisite->createView(),
         ]);
     }

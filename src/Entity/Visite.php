@@ -3,21 +3,66 @@
 namespace App\Entity;
 
 use App\Repository\VisiteRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Entity(repositoryClass=VisiteRepository::class)
+ * @Vich\Uploadable
  */
 class Visite
 {
+    
+    /**
+     * @Callback
+     * @param ExecutionContextInterface $contexte
+     */
+    public function validate(ExecutionContextInterface $contexte) {
+        $image = $this->getImageFile();
+        if($image != null && $image !=""){
+            $tailleImage = @getimagesize($image);
+            if($tailleImage != null){
+                if($tailleImage[0]>1300 || $tailleImage[1]>1300){
+                $contexte->buildViolation('Cette image est trop grande (taille max 1300x1300)')
+                    ->atPath('imageFile')
+                    ->addViolation();
+                }
+            }
+            else{
+                $contexte->buildViolation('Le fichier selectionné n\'est pas une image !')
+                        ->atPath('imageFile')
+                        ->addViolation();
+            }
+
+        }
+    }
+    
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     *NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *@Vich\UploadableField(mapping="visites", fileNameProperty="imageName")
+     *@var File|null
+     */
+    private ?File $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable = "true")
+     * @var string|null
+     */
+    private ?string $imageName;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -59,6 +104,11 @@ class Visite
      */
     private $environnements;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated_at;
+
     public function __construct()
     {
         $this->environnements = new ArrayCollection();
@@ -94,12 +144,12 @@ class Visite
         return $this;
     }
 
-    public function getDatecreation(): ?\DateTimeInterface
+    public function getDatecreation(): ?DateTimeInterface
     {
         return $this->datecreation;
     }
 
-    public function setDatecreation(?\DateTimeInterface $datecreation): self
+    public function setDatecreation(?DateTimeInterface $datecreation): self
     {
         $this->datecreation = $datecreation;
 
@@ -186,4 +236,39 @@ class Visite
 
         return $this;
     }
+    
+    public function getImageFile(): ?File {
+        return $this->imageFile;
+    }
+
+    public function getImageName(): ?string {
+        return $this->imageName;
+    }
+
+    public function setImageFile(?File $imageFile): self {
+        $this->imageFile = $imageFile;
+        if (null !== $this->imageFile){
+            $this->updated_at = new DateTime('now');
+        }
+        return $this;
+    }
+
+    public function setImageName(?string $imageName): self {
+        $this->imageName = $imageName;
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+
 }
